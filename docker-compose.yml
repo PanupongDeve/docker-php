@@ -5,11 +5,13 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: test_db
+      MYSQL_DATABASE: db
       MYSQL_USER: panupongdeve
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
+    volumes:
+      - ./mysql/db:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
@@ -20,7 +22,9 @@ services:
     ports:
       - 8888:80
   web:
-    image: php:7.2.2-apache
+    build:
+      context: .
+      dockerfile: ./container/php.Dockerfile
     container_name: web
     depends_on:
       - mysql
@@ -37,6 +41,7 @@ services:
       - 443:443
     volumes:
       - ./caddy/Caddyfile:/etc/Caddyfile
+      - ./caddy/.caddy:/root/.caddy
     volumes_from:
       - web
     network_mode: host

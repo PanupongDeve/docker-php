@@ -1,28 +1,19 @@
-<!-- ./php/index.php -->
+<?php 
 
-<html>
-    <head>
-        <title>Hello World</title>
-    </head>
+$db['db_host'] = "mysql";
+$db['db_user'] = "panupongdeve";
+$db['db_pass'] = "password";
+$db['db_name'] = "db";
 
-    <body>
-        <?php
-           /* First method to associate create array. */
-         $salaries = array("mohammad" => 2000, "qadir" => 1000, "zara" => 500);
-         $name = 'zara';
-         
-         echo "Salary of mohammad is ". $salaries['mohammad'] . "<br />";
-         echo "Salary of qadir is ".  $salaries['qadir']. "<br />";
-         echo "Salary of zara is ".  $salaries['zara']. "<br />";
-         
-         /* Second method to create array. */
-         $salaries['mohammad'] = "high";
-         $salaries['qadir'] = "medium";
-         $salaries[$name] = "low";
-         
-         echo "Salary of mohammad is ". $salaries['mohammad'] . "<br />";
-         echo "Salary of qadir is ".  $salaries['qadir']. "<br />";
-         echo "Salary of zara is ".  $salaries['zara']. "<br />";
-        ?>
-    </body>
-</html>
+foreach($db as $key => $value){
+	define(strtoupper($key), $value);
+}
+
+$connection = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+
+if($connection){
+echo "We are connected";
+}
+
+
+?>
